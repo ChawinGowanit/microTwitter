@@ -1,0 +1,11 @@
+%p#alert= alert
+%p#notice= notice
+%h1 See your new feed
+.container
+  .row
+    .col-11
+      - @feed.each do |post|
+        .d-flex.p-2.border.border-dark.mt-3 user : #{post.user_id} <br> Msg : #{post.message} <br> Created-at : #{post.created_at}
+    .col-1
+      .d.mt-3
+        = link_to 'Post', :new_post, class: 'btn btn-outline-dark'
