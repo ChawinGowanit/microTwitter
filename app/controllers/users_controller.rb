@@ -88,13 +88,8 @@ class UsersController < ApplicationController
 
   def feed
     @user = User.find(session[:user_id])  
-    @feed = Array.new
-    @user.followees.each do |followee|
-    followee.posts.each do |post|
-      @feed.push(post)
-      end
-    end
-    @feed = @feed.sort_by{ |post| post.created_at}
+    @feedpost = @user.get_feed_post
+
   end
 
 
@@ -117,6 +112,20 @@ class UsersController < ApplicationController
       Follow.find_by(follower_id: @follower_id, followee: @followee_id).destroy
     end
     redirect_back(fallback_location: "profile/:name")
+  end
+
+  def like
+    @pid = params[:pid]
+    Like.create(post_id: @pid, likeUser: session[:user_id])
+    redirect_back(fallback_location: "feed")
+
+  end
+
+  def unlike
+    @pid = params[:pid]
+    Like.find_by(post_id: @pid,likeUser: session[:user_id]).destroy
+    redirect_back(fallback_location: "feed")
+
   end
 
   private

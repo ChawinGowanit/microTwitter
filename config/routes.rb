@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   get "profile/:name", to: "users#viewUser"
   post "profile/:name", to: "users#manageFollow", as: "manageFollow"
 
+  post "like", to: "users#like"
+  post "unlike", to: "users#unlike"
 
 end

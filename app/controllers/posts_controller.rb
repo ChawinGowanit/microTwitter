@@ -18,7 +18,6 @@ class PostsController < ApplicationController
     @post = Post.new
     if(session[:user_id]!= nil)
       @post.user_id = Integer(session[:user_id])
-      @user = User.find(Integer(session[:user_id]))
     end
   end
 
